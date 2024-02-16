@@ -1,7 +1,7 @@
 const SearchRecipe = ({ handleSearch, search, setSearch }) => {
   return (
     <form
-      className="max-w-md mx-auto mb-3"
+      className="max-w-md mx-auto mb-6"
       onSubmit={handleSearch}
       autoComplete="off"
     >

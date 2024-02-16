@@ -25,8 +25,7 @@ const RecipeList = () => {
   };
 
   return (
-    <div className="mx-auto container">
-      <h1 className="text-3xl py-3 text-center font-bold">Recipe List</h1>
+    <section>
       <SearchRecipe
         handleSearch={handleSearch}
         search={search}
@@ -38,7 +37,7 @@ const RecipeList = () => {
             <RecipeCard key={recipe.recipe_id} recipe={recipe} />
           ))}
       </div>
-    </div>
+    </section>
   );
 };
 
