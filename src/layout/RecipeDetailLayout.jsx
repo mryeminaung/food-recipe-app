@@ -1,11 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, Outlet, useParams } from "react-router-dom";
+import { Link, Outlet, useLocation, useParams } from "react-router-dom";
+import { useRecipeContext } from "../context/RecipeContext";
 
 const RecipeDetailLayout = () => {
+  const { favRecipes, setFavRecipes } = useRecipeContext();
   const [relatedRecipes, setRelatedRecipes] = useState();
   const [currentRecipe, setCurrentRecipe] = useState();
   const { recipeId } = useParams();
+  const location = useLocation();
+  const isFav = favRecipes.find((recipe) => recipe.recipe_id === recipeId);
 
   const fetchRecipe = () => {
     axios
@@ -35,7 +39,7 @@ const RecipeDetailLayout = () => {
   return (
     <>
       <Link
-        to="/recipes"
+        to={`${location.state ? location.state.pathname : "/recipes"}`}
         className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 "
       >
         Back to Recipes
@@ -50,9 +54,38 @@ const RecipeDetailLayout = () => {
                 className="object-cover w-full rounded-t-lg h-96 md:w-full md:rounded-lg"
                 alt={currentRecipe.title}
               />
-              <span className="bg-blue-100 text-blue-800 text-base font-medium me-2 px-2.5 py-0.5 rounded-lg dark:bg-gray-700 dark:text-blue-400 border border-blue-400 absolute top-2 right-1">
-                {currentRecipe.publisher}
-              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  setFavRecipes((preRecipes) => {
+                    const isRecipeInFavorites = preRecipes.some(
+                      (recipe) => recipe.recipe_id === currentRecipe.recipe_id
+                    );
+
+                    // If the recipe is already in favorites, return the previous state
+                    if (isRecipeInFavorites) {
+                      console.log(isFav);
+                      return preRecipes;
+                    } else {
+                      // If the recipe is not in favorites, add it
+                      return [...preRecipes, currentRecipe];
+                    }
+                  });
+                }}
+                className="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-3 rounded-full py-3 dark:bg-blue-900 dark:text-blue-300 absolute top-2 right-2"
+              >
+                <svg
+                  className={`w-6 h-6 ${
+                    isFav ? "text-red-800" : "text-blue-800"
+                  } bg-blue-50 dark:text-white`}
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M7.8 2c-.5 0-1 .2-1.3.6A2 2 0 0 0 6 3.9V21a1 1 0 0 0 1.6.8l4.4-3.5 4.4 3.5A1 1 0 0 0 18 21V3.9c0-.5-.2-1-.5-1.3-.4-.4-.8-.6-1.3-.6H7.8Z" />
+                </svg>
+              </button>
             </div>
             <div className="mt-4">
               <div className="flex flex-col justify-between leading-normal">
