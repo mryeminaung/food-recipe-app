@@ -25,13 +25,13 @@ const RecipeList = () => {
   };
 
   return (
-    <section>
+    <section className="">
       <SearchRecipe
         handleSearch={handleSearch}
         search={search}
         setSearch={setSearch}
       />
-      <div className="flex items-center justify-center flex-wrap gap-4">
+      <div className="flex items-center justify-center flex-wrap gap-8">
         {recipes &&
           recipes.map((recipe) => (
             <RecipeCard key={recipe.recipe_id} recipe={recipe} />

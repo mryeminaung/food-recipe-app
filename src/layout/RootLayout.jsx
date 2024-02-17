@@ -4,13 +4,13 @@ import RecipeFooter from "../components/footer/RecipeFooter";
 
 const RootLayout = () => {
   return (
-    <>
+    <div className="">
       <RecipeNavbar />
       <main className="mt-24 mb-10 mx-auto container">
         <Outlet />
       </main>
       <RecipeFooter />
-    </>
+    </div>
   );
 };
 
