@@ -2,10 +2,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import { useRecipeContext } from "../context/RecipeContext";
+import RelatedRecipes from "../components/recipe/relatedRecipes/RelatedRecipes";
 
 const RecipeDetailLayout = () => {
   const { favRecipes, setFavRecipes } = useRecipeContext();
-  const [relatedRecipes, setRelatedRecipes] = useState();
   const [currentRecipe, setCurrentRecipe] = useState();
   const { recipeId } = useParams();
   const location = useLocation();
@@ -19,35 +19,22 @@ const RecipeDetailLayout = () => {
       });
   };
 
-  const fetchRelatedRecipes = () => {
-    axios
-      .get(`https://forkify-api.herokuapp.com/api/search?q=pizza`)
-      .then((res) => {
-        const recipes = res.data.recipes.filter(
-          (recipe) => recipe.recipe_id !== recipeId
-        );
-        console.log(recipes.slice(0, 10));
-        // setRelatedRecipes(recipes.slice(0, 10));
-      });
-  };
-
   useEffect(() => {
     fetchRecipe();
-    fetchRelatedRecipes();
   }, [recipeId]);
 
   return (
-    <>
+    <section className="">
       <Link
         to={`${location.state ? location.state.pathname : "/recipes"}`}
-        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 "
+        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 m-2 md:m-5 lg:m-8"
       >
         Back to Recipes
       </Link>
 
       {currentRecipe && (
-        <div className="flex flex-col md:flex-row items-start mt-4 gap-y-4 md:gap-x-5">
-          <div className="w-full md:w-3/5 bg-white border border-gray-200 rounded-lg shadow md:flex-row dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 p-2 md:p-5 lg:p-8">
+        <div className="flex flex-col md:flex-row items-start mt-2 gap-y-4 md:gap-x-2">
+          <div className="w-full md:w-3/5 bg-white rounded-lg md:flex-row dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 p-2 md:p-5 lg:p-8">
             <div className="flex items-center w-full relative">
               <img
                 src={currentRecipe.image_url}
@@ -64,8 +51,10 @@ const RecipeDetailLayout = () => {
 
                     // If the recipe is already in favorites, return the previous state
                     if (isRecipeInFavorites) {
-                      console.log(isFav);
-                      return preRecipes;
+                      const filteredRecipes = preRecipes.filter(
+                        (recipe) => recipe.recipe_id !== currentRecipe.recipe_id
+                      );
+                      return filteredRecipes;
                     } else {
                       // If the recipe is not in favorites, add it
                       return [...preRecipes, currentRecipe];
@@ -120,13 +109,12 @@ const RecipeDetailLayout = () => {
               </div>
             </div>
           </div>
-          <div className="w-full md:w-2/5 bg-white border border-gray-200 rounded-lg shadow">
-            <h2 className="text-2xl font-bold">Related Recipes</h2>
-            {relatedRecipes ? relatedRecipes : "nothing to show..."}
+          <div className="w-full md:w-2/5 bg-white">
+            <RelatedRecipes current={currentRecipe} />
           </div>
         </div>
       )}
-    </>
+    </section>
   );
 };
 

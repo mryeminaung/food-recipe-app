@@ -1,4 +1,8 @@
-const SearchRecipe = ({ handleSearch, search, setSearch }) => {
+import { useRecipeContext } from "../../context/RecipeContext";
+
+const SearchRecipe = () => {
+  const { handleSearch, search, setSearch } = useRecipeContext();
+
   return (
     <form
       className="max-w-md mx-auto mb-6"
