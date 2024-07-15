@@ -109,7 +109,7 @@ const RecipeDetailLayout = () => {
               </div>
             </div>
           </div>
-          <div className="w-full md:w-2/5 bg-white">
+          <div className="w-full mt-5 md:mt-0 md:w-2/5 bg-white">
             <RelatedRecipes current={currentRecipe} />
           </div>
         </div>
