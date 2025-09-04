@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { Bookmark, Share2, Clock, Users, Star } from "lucide-react";
-import { Link, useParams } from "react-router-dom";
+import { useParams, Link } from "react-router";
 import axios from "axios";
-import { useRecipeContext } from "@/context/RecipeContext";
-import Instructions from "../components/Instructions";
+import Instructions from "@/components/Instructions";
+import RelatedRecipes from "@/components/RelatedRecipes";
 
 const RecipeDetail = () => {
 	const [activeTab, setActiveTab] = useState("overview");
-	const { recipes } = useRecipeContext();
 
 	let { recipeId } = useParams();
 	const [currentRecipe, setCurrentRecipe] = useState("");
@@ -57,7 +56,7 @@ const RecipeDetail = () => {
 							</div>
 						</div>
 
-						<div className="flex items-center gap-6 text-sm text-gray-600 bg-white py-6 px-5 rounded-md justify-between">
+						<div className="flex items-center shadow-sm gap-6 text-sm text-gray-600 bg-white py-6 px-5 rounded-md justify-between">
 							<div className="flex items-center gap-x-5">
 								<div className="flex items-center gap-2">
 									<Clock size={16} /> <span>40 mins</span>
@@ -82,9 +81,9 @@ const RecipeDetail = () => {
 							{["overview", "ingredients", "nutrition"].map((tab) => (
 								<button
 									key={tab}
-									className={`px-16 py-2.5 font-medium capitalize ${
+									className={`px-16 py-2.5 font-medium capitalize hover:cursor-pointer transition ${
 										activeTab === tab
-											? "bg-white rounded-md text-orange-600"
+											? "bg-white rounded-md text-orange-600 border border-orange-600 shadow-sm"
 											: "text-gray-500 hover:text-gray-700"
 									}`}
 									onClick={() => setActiveTab(tab)}>
@@ -93,7 +92,7 @@ const RecipeDetail = () => {
 							))}
 						</div>
 
-						<div className="bg-white p-6 rounded-xl shadow">
+						<div className="bg-white p-6 rounded-xl shadow-sm shadow-orange-300">
 							{activeTab === "overview" && (
 								<div>
 									<h2 className="text-lg font-semibold mb-2">
@@ -126,7 +125,7 @@ const RecipeDetail = () => {
 
 					{/* right section */}
 					<div className="space-y-6">
-						<div className="bg-white p-6 rounded-xl shadow space-y-3">
+						<div className="bg-white p-6 rounded-xl shadow-sm shadow-orange-300 space-y-3">
 							<button className="w-full bg-gradient-to-r from-orange-400 to-orange-500 text-white py-2 rounded-lg font-medium hover:opacity-90">
 								Save Recipe
 							</button>
@@ -135,34 +134,7 @@ const RecipeDetail = () => {
 							</button>
 						</div>
 
-						<div className="bg-white p-6 rounded-xl shadow space-y-4">
-							<h3 className="font-semibold">Related Recipes</h3>
-							<div className="space-y-3">
-								{[
-									{ title: "Classic Margherita Pizza", time: "30 mins" },
-									{ title: "Chicken Alfredo Pasta", time: "35 mins" },
-									{ title: "Caesar Salad", time: "15 mins" },
-								].map((item, idx) => (
-									<div
-										key={idx}
-										className="flex items-start gap-3 border rounded-lg p-3 hover:bg-gray-50">
-										<div className="w-16 h-16 rounded overflow-hidden">
-											<img
-												src={currentRecipe.image_url}
-												alt={item.title}
-												className="w-full h-full object-cover"
-											/>
-										</div>
-										<div>
-											<p className="text-sm font-medium">{item.title}</p>
-											<div className="flex items-center gap-1 mt-1 font-light text-sm">
-												<Clock size={14} /> <span>40 mins</span>
-											</div>
-										</div>
-									</div>
-								))}
-							</div>
-						</div>
+						<RelatedRecipes currentRecipe={currentRecipe} />
 					</div>
 				</div>
 			</div>

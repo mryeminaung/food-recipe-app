@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import { useRecipeContext } from "../context/RecipeContext";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router";
+import { Clock } from "lucide-react";
 
-const RelatedRecipes = ({ current }) => {
+const RelatedRecipes = ({ currentRecipe }) => {
+	const navigate = useNavigate();
+
 	const { search } = useRecipeContext();
 	const [relatedRecipes, setRelatedRecipes] = useState();
-
-	const scrollToTop = () => {
-		window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-	};
 
 	const fetchRelatedRecipes = () => {
 		axios
@@ -20,48 +19,42 @@ const RelatedRecipes = ({ current }) => {
 			)
 			.then((res) => {
 				const recipes = res.data.recipes.filter(
-					(recipe) => recipe.recipe_id !== current.recipe_id,
+					(recipe) => recipe.recipe_id !== currentRecipe.recipe_id,
 				);
-				setRelatedRecipes(recipes.slice(5, 10));
+				setRelatedRecipes(recipes.slice(5, 8));
 			});
 	};
 
 	useEffect(() => {
 		fetchRelatedRecipes();
-	}, [current.recipe_id]);
+	}, [relatedRecipes]);
 
 	return (
-		<div className="py-3">
-			<h2 className="text-2xl font-bold -mt-8 mb-3 text-center">
-				Related Recipes
-			</h2>
-			<ul className="px-3 flex flex-wrap gap-y-8 md:gap-y-4">
+		<div className="bg-white p-6 rounded-xl shadow-sm shadow-orange-300 space-y-6">
+			<h3 className="font-semibold">Related Recipes</h3>
+			<div className="space-y-3">
 				{relatedRecipes &&
 					relatedRecipes.map((recipe) => (
-						<li
+						<div
 							key={recipe.recipe_id}
-							className="w-full duration-150 hover:scale-105">
-							<Link
-								to={`/recipes/detail/${recipe.recipe_id}`}
-								onClick={scrollToTop}
-								className="flex flex-col text-left md:text-left md:items-center bg-white border border-gray-200 rounded-lg shadow lg:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+							onClick={() => navigate(`/recipes/details/${recipe.recipe_id}`)}
+							className="flex hover:shadow-orange-300 items-start gap-3 shadow-sm hover:scale-[1.03] transition-all hover:cursor-pointer rounded-lg p-3 hover:bg-gray-50">
+							<div className="w-16 h-16 rounded overflow-hidden">
 								<img
-									className="object-cover w-full h-48 p-3 lg:w-48 rounded-2xl"
 									src={recipe.image_url}
-									alt=""
+									alt={recipe.title}
+									className="w-full h-full object-cover"
 								/>
-								<div className="flex flex-col justify-start p-2  leading-normal">
-									<p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-										{recipe.publisher}
-									</p>
-									<h5 className="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">
-										{recipe.title}
-									</h5>
+							</div>
+							<div>
+								<p className="text-sm font-medium">{recipe.title}</p>
+								<div className="flex items-center gap-1 mt-1 font-light text-sm">
+									<Clock size={14} /> <span>40 mins</span>
 								</div>
-							</Link>
-						</li>
+							</div>
+						</div>
 					))}
-			</ul>
+			</div>
 		</div>
 	);
 };

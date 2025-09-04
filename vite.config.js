@@ -1,16 +1,17 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react"; // or vue, svelte, etc.
+import react from "@vitejs/plugin-react";
 import path from "path";
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-	plugins: [react()],
+	plugins: [react(), tailwindcss()],
 	server: {
 		port: 3000,
 		open: true,
 	},
 	resolve: {
 		alias: {
-			"@": path.resolve(__dirname, "./src"), // '@' points to /src
+			"@": path.resolve(__dirname, "./src"),
 		},
 	},
 });

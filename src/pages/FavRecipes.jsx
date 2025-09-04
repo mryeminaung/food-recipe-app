@@ -32,11 +32,11 @@ const FavRecipes = () => {
 							<input
 								type="text"
 								placeholder="Search your favorite recipes..."
-								className="w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none"
+								className="w-full pl-10 pr-4 py-3 border bg-white border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none"
 							/>
 						</div>
 
-						<button className="flex items-center gap-2 px-4 py-3 border rounded-lg bg-white hover:bg-gray-50">
+						<button className="flex items-center gap-2 px-4 py-3 rounded-lg border bg-white border-gray-300 hover:bg-gray-50">
 							<ArrowDownUp size={18} />
 							<span className="text-sm font-medium">Sort</span>
 						</button>

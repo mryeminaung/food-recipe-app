@@ -35,7 +35,7 @@ const SearchRecipe = () => {
 					name="search"
 					value={search}
 					onChange={(e) => setSearch(e.target.value)}
-					className="block w-full p-3 ps-10 text-sm rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:outline-none"
+					className="block w-full p-3 ps-10 text-sm rounded-lg border bg-white border-gray-300 focus:ring-2 focus:ring-orange-500 focus:outline-none"
 					placeholder="Search recipe..."
 					required=""
 				/>

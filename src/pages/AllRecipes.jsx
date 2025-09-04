@@ -8,7 +8,7 @@ const AllRecipes = () => {
 
 	return (
 		<>
-			<div className=" bg-[#FDFCFB] pt-28 pb-10">
+			<div className=" bg-[#FDFCFB] pt-36 pb-16">
 				<div className="max-w-screen-xl mx-auto px-5">
 					<h1 className="text-3xl text-center md:text-5xl font-bold text-gray-900">
 						All Recipes

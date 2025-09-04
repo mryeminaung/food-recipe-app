@@ -1,7 +1,7 @@
 import homeBg from "../assets/homeBg.jpg";
 import { useRecipeContext } from "@/context/RecipeContext";
 import RecipeCard from "@/components/RecipeCard";
-import { ArrowDownUp, Search } from "lucide-react";
+import { Search } from "lucide-react";
 
 const HomeRecipes = () => {
 	const { recipes } = useRecipeContext();
@@ -42,7 +42,7 @@ const HomeRecipes = () => {
 							<input
 								type="text"
 								placeholder="Search your favorite recipes..."
-								className="w-full pl-10 pr-4 py-4 border rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none"
+								className="w-full pl-10 pr-4 py-4 border bg-white border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:outline-none"
 							/>
 						</div>
 
