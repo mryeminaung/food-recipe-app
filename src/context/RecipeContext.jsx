@@ -1,74 +1,83 @@
 import axios from "axios";
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+	createContext,
+	useContext,
+	useEffect,
+	useState,
+	useCallback,
+} from "react";
 import { useSearchParams } from "react-router-dom";
 
 const RecipeContext = createContext();
 
 export const RecipeContextProvider = ({ children }) => {
-  const initialState = JSON.parse(localStorage.getItem("favRecipes")) ?? [];
-  const [favRecipes, setFavRecipes] = useState(initialState);
-  const [recipes, setRecipes] = useState();
-  const [search, setSearch] = useState("");
+	const [favRecipes, setFavRecipes] = useState(() => {
+		return JSON.parse(localStorage.getItem("favRecipes")) ?? [];
+	});
+	const [recipes, setRecipes] = useState([]);
+	const [search, setSearch] = useState("");
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState(null);
 
-  const [searchParams, setSearchParams] = useSearchParams();
-  let typeFilter = searchParams.get("type");
+	const [searchParams, setSearchParams] = useSearchParams();
+	const typeFilter = searchParams.get("type");
 
-  const handleFilterChange = (key, value) => {
-    setSearchParams((prevParams) => {
-      if (value === null) {
-        prevParams.delete(key);
-      } else {
-        prevParams.set(key, value);
-      }
-      return prevParams;
-    });
-  };
+	const updateFilter = (key, value) => {
+		setSearchParams((prevParams) => {
+			if (!value) {
+				prevParams.delete(key);
+			} else {
+				prevParams.set(key, value);
+			}
+			return prevParams;
+		});
+	};
 
-  useEffect(() => {
-    axios
-      .get(
-        `https://forkify-api.herokuapp.com/api/search?q=${
-          typeFilter ? typeFilter : "pizza"
-        }`
-      )
-      .then((res) => setRecipes(res.data.recipes));
-  }, []);
+	const fetchRecipes = useCallback(async (query) => {
+		setLoading(true);
+		setError(null);
+		try {
+			const res = await axios.get(
+				`https://forkify-api.herokuapp.com/api/search?q=${query || "pizza"}`,
+			);
+			setRecipes(res.data.recipes || []);
+		} catch (err) {
+			setError("Failed to fetch recipes. Please try again.");
+		} finally {
+			setLoading(false);
+		}
+	}, []);
 
-  const searchRecipe = () => {
-    axios
-      .get(
-        `https://forkify-api.herokuapp.com/api/search?q=${
-          search ? search : "pizza"
-        }`
-      )
-      .then((res) => setRecipes(res.data.recipes));
-  };
+	useEffect(() => {
+		fetchRecipes(typeFilter);
+	}, [fetchRecipes, typeFilter]);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    searchRecipe();
-    handleFilterChange("type", search ? search : null);
-  };
+	const handleSearch = (e) => {
+		e.preventDefault();
+		fetchRecipes(search);
+		updateFilter("type", search || null);
+	};
 
-  useEffect(() => {
-    localStorage.setItem("favRecipes", JSON.stringify(favRecipes));
-  }, [favRecipes]);
+	useEffect(() => {
+		localStorage.setItem("favRecipes", JSON.stringify(favRecipes));
+	}, [favRecipes]);
 
-  return (
-    <RecipeContext.Provider
-      value={{
-        recipes,
-        setRecipes,
-        search,
-        setSearch,
-        handleSearch,
-        favRecipes,
-        setFavRecipes,
-      }}
-    >
-      {children}
-    </RecipeContext.Provider>
-  );
+	return (
+		<RecipeContext.Provider
+			value={{
+				recipes,
+				setRecipes,
+				search,
+				setSearch,
+				handleSearch,
+				favRecipes,
+				setFavRecipes,
+				loading,
+				error,
+			}}>
+			{children}
+		</RecipeContext.Provider>
+	);
 };
 
 export const useRecipeContext = () => useContext(RecipeContext);

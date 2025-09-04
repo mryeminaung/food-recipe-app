@@ -1,35 +1,44 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import RecipeList from "./components/recipe/RecipeList";
-import RecipeLayout from "./layout/RecipeLayout";
-import RootLayout from "./layout/RootLayout";
-import FavRecipes from "./components/recipe/FavRecipes";
 import { RecipeContextProvider } from "./context/RecipeContext";
-import RecipePhoto from "./components/recipe/detail/RecipePhoto";
-import Ingredients from "./components/recipe/detail/Ingredients";
-import RecipeDetailLayout from "./layout/RecipeDetailLayout";
-import RecipeDetail from "./components/recipe/detail/RecipeDetail";
+import RootLayout from "@/layout/RootLayout";
+import FavRecipes from "@/pages/FavRecipes";
+import HomeRecipes from "@/pages/HomeRecipes";
+import AllRecipes from "@/pages/AllRecipes";
+import RecipeDetail from "@/pages/RecipeDetail";
+import { ScrollToTop } from "@/libs/utils";
 
 const App = () => {
-  return (
-    <BrowserRouter>
-      <RecipeContextProvider>
-        <Routes>
-          <Route path="/" element={<RootLayout />}>
-            <Route path="recipes" element={<RecipeLayout />}>
-              <Route index element={<RecipeList />} />
-              <Route path="favourites" element={<FavRecipes />} />
+	return (
+		<BrowserRouter>
+			<ScrollToTop />
+			<RecipeContextProvider>
+				<Routes>
+					<Route
+						path="/"
+						element={<RootLayout />}>
+						<Route
+							index
+							element={<HomeRecipes />}
+						/>
+						<Route
+							path="recipes"
+							element={<AllRecipes />}
+						/>
 
-              <Route path="detail/:recipeId" element={<RecipeDetailLayout />}>
-                <Route index element={<RecipeDetail />} />
-                <Route path="photos" element={<RecipePhoto />} />
-                <Route path="ingredients" element={<Ingredients />} />
-              </Route>
-            </Route>
-          </Route>
-        </Routes>
-      </RecipeContextProvider>
-    </BrowserRouter>
-  );
+						<Route
+							path="recipes/details/:recipeId"
+							element={<RecipeDetail />}
+						/>
+
+						<Route
+							path="recipes/favourites"
+							element={<FavRecipes />}
+						/>
+					</Route>
+				</Routes>
+			</RecipeContextProvider>
+		</BrowserRouter>
+	);
 };
 
 export default App;
