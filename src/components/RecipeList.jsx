@@ -19,21 +19,6 @@ const RecipeList = () => {
 					</p>
 
 					<SearchRecipe />
-
-					<div className="flex items-center gap-x-3">
-						<button className="px-4 text-white py-1 rounded-full bg-gradient-to-r from-orange-500 to-orange-400 hover:from-orange-500 hover:to-orange-700">
-							All
-						</button>
-						<button className="px-4 py-1 rounded-full border-gray-300 border">
-							Easy
-						</button>
-						<button className="px-4 py-1 rounded-full border-gray-300 border">
-							Medium
-						</button>
-						<button className="px-4 py-1 rounded-full border-gray-300 border">
-							Hard
-						</button>
-					</div>
 				</div>
 			</div>
 

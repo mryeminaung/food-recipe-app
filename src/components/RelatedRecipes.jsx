@@ -27,7 +27,7 @@ const RelatedRecipes = ({ currentRecipe }) => {
 
 	useEffect(() => {
 		fetchRelatedRecipes();
-	}, [relatedRecipes]);
+	}, [currentRecipe.recipe_id]);
 
 	return (
 		<div className="bg-white p-6 rounded-xl shadow-sm shadow-orange-300 space-y-6">

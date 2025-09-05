@@ -16,7 +16,7 @@ const RecipeFooter = () => {
 						href="https://github.com/mryeminaung"
 						target="_blank"
 						rel="noopener noreferrer"
-						className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-card hover:bg-accent transition-colors text-sm font-medium text-foreground/80 hover:text-foreground border border-border/40 hover:border-border/60">
+						className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-card hover:bg-accent transition-colors text-sm font-medium text-foreground/80 hover:text-foreground border border-border/40 hover:border-border/60 hover:border-orange-400 shadow-sm">
 						<Github className="w-4 h-4" />
 						<span>Follow on GitHub</span>
 					</a>

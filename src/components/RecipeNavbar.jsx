@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { Home, BookOpen, Heart, Menu, X } from "lucide-react";
 import logo from "../assets/favicon.png";
+import { useRecipeContext } from "@/context/RecipeContext";
 
 const RecipeNavbar = () => {
 	const [isOpen, setIsOpen] = useState(false);
+	const { favRecipes } = useRecipeContext();
 	const location = useLocation();
 
 	const navItems = [
@@ -14,7 +16,7 @@ const RecipeNavbar = () => {
 			name: "Favorites",
 			icon: <Heart size={18} />,
 			path: "/recipes/favourites",
-			badge: 3,
+			badge: favRecipes.length,
 		},
 	];
 
