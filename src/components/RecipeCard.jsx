@@ -1,7 +1,7 @@
-import { Heart, Clock, Users, Flame } from "lucide-react";
-import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import { useRecipeContext } from "@/context/RecipeContext";
+import { motion } from "framer-motion";
+import { Clock, Flame, Heart, Users } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const RecipeCard = ({ recipe }) => {
 	const { favRecipes, setFavRecipes } = useRecipeContext();

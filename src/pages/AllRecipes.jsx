@@ -30,16 +30,18 @@ const AllRecipes = () => {
 					<SearchRecipe />
 
 					<div className="flex items-center gap-3 flex-wrap justify-center mt-6">
-						<button
-							onClick={() => setSelectedPublisher("")}
-							className={`px-4 py-1 rounded-full transition text-sm font-medium
+						{recipes?.length > 0 && (
+							<button
+								onClick={() => setSelectedPublisher("")}
+								className={`px-4 py-1 rounded-full transition text-sm font-medium
 								${
 									selectedPublisher === ""
 										? "text-white bg-gradient-to-r from-orange-500 to-orange-400"
 										: "bg-gray-200 text-gray-700 hover:bg-gray-300"
 								}`}>
-							All
-						</button>
+								All
+							</button>
+						)}
 						{publishers.map((publisher) => (
 							<button
 								key={publisher}

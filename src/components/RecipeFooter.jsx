@@ -3,8 +3,8 @@ import { Github, Heart } from "lucide-react";
 const RecipeFooter = () => {
 	return (
 		<footer className="bg-muted/30 border-t border-t-gray-200">
-			<div className="max-w-7xl mx-auto px-5 py-3">
-				<div className="flex flex-row items-start justify-between space-y-4">
+			<div className="max-w-7xl mx-auto px-5 py-5 md:py-3">
+				<div className="flex flex-col items-center md:flex-row md:items-start justify-between space-y-5">
 					<div className="flex items-center gap-2 text-center">
 						<span className="text-foreground/80">Made with</span>
 						<Heart className="w-4 h-4 text-orange-500 fill-orange-500" />

@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import { Share2, Clock, Users, Star, Heart } from "lucide-react";
-import { useParams, Link } from "react-router";
-import axios from "axios";
 import Instructions from "@/components/Instructions";
 import RelatedRecipes from "@/components/RelatedRecipes";
 import { useRecipeContext } from "@/context/RecipeContext";
-import { motion, AnimatePresence } from "framer-motion";
+import axios from "axios";
+import { AnimatePresence, motion } from "framer-motion";
+import { Heart, Share2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router";
 
 const RecipeDetail = () => {
 	const [activeTab, setActiveTab] = useState("overview");
@@ -106,11 +106,11 @@ const RecipeDetail = () => {
 							</div>
 						</motion.div>
 
-						<div className="flex p-1 text-sm rounded-md bg-[#F7F5F3]">
+						<div className="flex p-1 flex-wrap text-sm rounded-md bg-[#F7F5F3]">
 							{["overview", "ingredients"].map((tab) => (
 								<button
 									key={tab}
-									className={`px-16 py-2.5 font-medium capitalize hover:cursor-pointer transition ${
+									className={`px-16 w-full sm:w-auto py-2.5 font-medium capitalize hover:cursor-pointer transition ${
 										activeTab === tab
 											? "bg-white rounded-md text-orange-600 border border-orange-600 shadow-sm"
 											: "text-gray-500 hover:text-gray-700"
@@ -177,9 +177,10 @@ const RecipeDetail = () => {
 						className="space-y-6">
 						<div className="bg-white p-6 rounded-xl shadow-sm shadow-orange-300 space-y-3">
 							<motion.button
+								onClick={toggleFavRecipe}
 								whileTap={{ scale: 0.95 }}
-								className="w-full bg-gradient-to-r from-orange-400 to-orange-500 text-white py-2 rounded-lg font-medium hover:opacity-90">
-								Save Recipe
+								className="w-full bg-gradient-to-r from-orange-400 to-orange-500 text-white py-2 hover:cursor-pointer rounded-lg font-medium hover:opacity-90">
+								{isFavRecipe ? "Remove from Favourite" : "Save Recipe"}
 							</motion.button>
 							<motion.button
 								whileHover={{ scale: 1.05 }}

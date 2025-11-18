@@ -3,7 +3,7 @@ import React from "react";
 
 const SearchFav = ({ setQuery }) => {
 	return (
-		<section className="bg-gradient-to-b pt-28 pb-20 from-orange-50 to-orange-100 text-center">
+		<section className="bg-gradient-to-b pt-28 pb-20 from-orange-50 to-orange-100 text-center px-5">
 			<div className="flex justify-center mb-6">
 				<div className="w-14 h-14 flex items-center justify-center rounded-full bg-gradient-to-r from-orange-400 to-orange-600">
 					<Heart className="w-7 h-7 text-white" />

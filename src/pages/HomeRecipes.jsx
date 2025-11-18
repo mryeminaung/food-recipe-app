@@ -3,6 +3,7 @@ import { useRecipeContext } from "@/context/RecipeContext";
 import RecipeCard from "@/components/RecipeCard";
 import { ArrowRight, Search } from "lucide-react";
 import { Link } from "react-router-dom";
+import SkeletonCard from "@/components/SkeletonCard";
 
 const HomeRecipes = () => {
 	const { recipes } = useRecipeContext();
@@ -74,12 +75,14 @@ const HomeRecipes = () => {
 					</p>
 
 					<div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 py-8">
-						{recipes.slice(0, 4).map((recipe) => (
-							<RecipeCard
-								key={recipe.image_url}
-								recipe={recipe}
-							/>
-						))}
+						{recipes?.length > 0
+							? recipes.slice(0, 4).map((recipe) => (
+									<RecipeCard
+										key={recipe.image_url}
+										recipe={recipe}
+									/>
+							  ))
+							: [1, 2, 3, 4].map((index) => <SkeletonCard key={index} />)}
 					</div>
 				</div>
 			</div>

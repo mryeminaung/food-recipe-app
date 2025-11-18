@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
-import { Home, BookOpen, Heart, Menu, X } from "lucide-react";
-import logo from "../assets/favicon.png";
 import { useRecipeContext } from "@/context/RecipeContext";
+import { BookOpen, Heart, Home, Menu, X } from "lucide-react";
+import { useState } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import logo from "../assets/favicon.png";
 
 const RecipeNavbar = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -106,7 +106,7 @@ const RecipeNavbar = () => {
 								{item.icon}
 								{item.name}
 								{item.badge && (
-									<span className="absolute left-24 -top-1 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">
+									<span className=" bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">
 										{item.badge}
 									</span>
 								)}

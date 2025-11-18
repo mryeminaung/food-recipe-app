@@ -37,7 +37,7 @@ const SearchRecipe = () => {
 			className="max-w-lg mx-auto my-8 border-none relative"
 			onSubmit={handleSearch}
 			autoComplete="off">
-			<div className="flex items-center gap-x-3">
+			<div className="flex flex-col sm:flex-row gap-y-5 items-center gap-x-3">
 				<div className="relative w-full">
 					<div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
 						<svg
@@ -78,7 +78,7 @@ const SearchRecipe = () => {
 					)}
 				</div>
 
-				<button className="flex hover:cursor-pointer items-center gap-2 px-8 py-3 text-white rounded-lg bg-gradient-to-r from-orange-500 to-orange-400 hover:from-orange-500 hover:to-orange-700">
+				<button className="hidden hover:cursor-pointer items-center  justify-center gap-2 px-8 py-3 text-white rounded-lg bg-gradient-to-r from-orange-500 to-orange-400 hover:from-orange-500 hover:to-orange-700">
 					<span className="text-sm font-medium">Search</span>
 				</button>
 			</div>

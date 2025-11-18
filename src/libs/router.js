@@ -1,10 +1,10 @@
-import { createBrowserRouter, RouterProvider } from "react-router";
-import { RecipeContextProvider } from "@/context/RecipeContext";
+import { createBrowserRouter } from "react-router";
 import RootLayout from "@/layout/RootLayout";
 import FavRecipes from "@/pages/FavRecipes";
 import HomeRecipes from "@/pages/HomeRecipes";
 import AllRecipes from "@/pages/AllRecipes";
 import RecipeDetail from "@/pages/RecipeDetail";
+import NotFound from "@/components/NotFound";
 
 const routes = [
 	{
